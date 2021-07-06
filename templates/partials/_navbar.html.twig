@@ -8,15 +8,27 @@
 		<ul class="navbar-nav">
 			<li class="nav-item {% if route_name == 'home' %}active{% endif %}">
 				<a class="nav-link" href="/">Home</a>
+
 			</li>
-			<li class="nav-item {% if route_name == 'user_index' %}active {% endif %} "></li>
+
+			<li class="nav-item {% if route_name == 'article_index' %}active{% endif %}">
+				<a class="nav-link" href="/article">Article</a>
+			</li>
 
 
-			<a class="nav-link" href="/user">Users</a>
-		</li>
-		<li class="nav-item {% if route_name == 'article_index' %}active{% endif %}">
-			<a class="nav-link" href="/article">Article
-			</a>
+			{% if is_logged %}
+				<li class="nav-item">
+					<a class="nav-link" href="/logout">Logout</a>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="/login">Login</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/register">Register</a>
+				</li>
+			{% endif %}
 		</li>
 	</ul>
 </div></nav>
