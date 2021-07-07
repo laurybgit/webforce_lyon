@@ -47,9 +47,9 @@
                     </ul>
                     <div>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    {{ app.user.username }} || <a class="btn"  href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {{ app.user.username }}  || <a class="btn"  href="{{ path('app_logout') }}">Se déconnecter</a>
                     {% else %}
-                        <a class="btn" href="{{ path('app_login') }}">Se connecter</a>  <a class="btn"  href="{{ path('app_register') }}">S'incrire</a>
+                        <a class="btn btn-info" href="{{ path('app_login') }}">Se connecter</a>  <a class="btn btn-primary"  href="{{ path('app_register') }}">S'incrire</a>
                     {% endif %}
                     
                     
