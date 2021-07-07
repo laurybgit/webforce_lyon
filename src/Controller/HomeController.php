@@ -11,7 +11,11 @@ class HomeController extends AbstractController {
      * @Route("/", name="home")
      */
     public function index(): Response {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'Pas connecté !');
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
