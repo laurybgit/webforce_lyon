@@ -38,16 +38,17 @@ class Post
     private $created_at;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $auteur;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $image;
 
-    public function __construct() {
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
+     */
+    private $user;
+
+    public function __construct()
+    {
         $this->created_at = new \Datetime;
     }
 
@@ -104,17 +105,6 @@ class Post
         return $this;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): self
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {
@@ -124,6 +114,18 @@ class Post
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

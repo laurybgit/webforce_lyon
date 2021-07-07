@@ -25,11 +25,11 @@
             </tr>
             <tr>
                 <th>Created_at</th>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.createdAt ? post.createdAt|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Auteur</th>
-                <td>{{ post.auteur }}</td>
+                <td>{{ post.user.username }}</td>
             </tr>
             <tr>
                 <th>Image</th>

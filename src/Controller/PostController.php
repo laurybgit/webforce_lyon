@@ -24,12 +24,21 @@ class PostController extends AbstractController
     #[Route('/new', name: 'post_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
+        if(!$this->getUser()) {
+            $this->addFlash('error', 'Vous devez être connecter pour accéder à cette page');
+
+            return $this->redirectToRoute('app_login');
+        }
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $post->setUser($this->getUser());
+
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -71,7 +80,7 @@ class PostController extends AbstractController
     #[Route('/{id}', name: 'post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($post);
             $entityManager->flush();

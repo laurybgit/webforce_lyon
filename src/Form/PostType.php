@@ -16,7 +16,7 @@ class PostType extends AbstractType
             ->add('resume')
             ->add('contenu')
             // ->add('created_at')
-            ->add('auteur')
+            // ->add('auteur')
             ->add('image')
         ;
     }
