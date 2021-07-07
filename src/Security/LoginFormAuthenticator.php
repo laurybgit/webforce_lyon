@@ -45,6 +45,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+        // $this->session->getFlashBag()->add('success', 'You just logged!');
+
+        // $default_route = $this->router->generate('home');
+        // return new RedirectResponse($default_route);
 
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }

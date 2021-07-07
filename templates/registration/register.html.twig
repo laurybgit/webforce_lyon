@@ -1,17 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}
+	Register
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+	<h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+	{{ form_start(registrationForm) }}
+	<div class="form-group">
+		{{ form_row(registrationForm.email,{'attr': {'class': 'form-control', 'type':'email'}}) }}
+	</div>
+	{{ form_start(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+	<div class="form-group">
+		{{ form_row(registrationForm.name,{'attr': {'class': 'form-control', 'type':'text'}}) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(registrationForm.plainPassword, {'label': 'Password','attr': {'class': 'form-control', 'type':'password'}}) }}
+	</div>
+
+	<div class="form-check">
+		{{ form_row(registrationForm.agreeTerms, {'label':'Agree to terms', 'attr':{'type':'checkbox'}}) }}
+	</div>
+
+
+	<button type="submit" class="btn btn-primary">Register</button>
+	{{ form_end(registrationForm) }}
 {% endblock %}
