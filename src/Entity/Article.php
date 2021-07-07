@@ -102,12 +102,6 @@ class Article {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
     public function getImage(): ?string {
         return $this->image;
     }
