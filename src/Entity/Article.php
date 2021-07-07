@@ -32,11 +32,6 @@ class Article {
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=40)
-     */
-    private $author;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $content;
@@ -50,6 +45,12 @@ class Article {
      * @ORM\Column(type="text")
      */
     private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int {
         return $this->id;
@@ -75,15 +76,6 @@ class Article {
         return $this;
     }
 
-    public function getAuthor(): ?string {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getContent(): ?string {
         return $this->content;
@@ -98,7 +90,7 @@ class Article {
     public function getCreatedAtFormatted(string $rule): string {
         return $this->created_at->format($rule);
     }
-    
+
     private function getCreatedAt(): ?\DateTimeImmutable {
         return $this->created_at;
     }
@@ -109,6 +101,16 @@ class Article {
 
     public function setImage(string $image): self {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUser(): ?User {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self {
+        $this->user = $user;
 
         return $this;
     }

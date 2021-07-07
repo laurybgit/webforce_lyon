@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,13 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/article")
  */
-class ArticleController extends AbstractController
-{
+class ArticleController extends AbstractController {
     /**
      * @Route("/", name="article_index", methods={"GET"})
      */
-    public function index(ArticleRepository $articleRepository): Response
-    {
+    public function index(ArticleRepository $articleRepository): Response {
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
         ]);
@@ -28,9 +27,12 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    public function new(Request $request): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+
         $article = new Article();
+        $article->setUser($this->getUser());
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -51,8 +53,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Article $article): Response
-    {
+    public function show(Article $article): Response {
         return $this->render('article/show.html.twig', [
             'article' => $article,
         ]);
@@ -61,8 +62,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Article $article): Response
-    {
+    public function edit(Request $request, Article $article): Response {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -81,9 +81,8 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_delete", methods={"POST"})
      */
-    public function delete(Request $request, Article $article): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+    public function delete(Request $request, Article $article): Response {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
