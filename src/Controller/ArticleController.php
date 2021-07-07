@@ -44,7 +44,7 @@ class ArticleController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Article crée avec success');
             return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
         }
 
