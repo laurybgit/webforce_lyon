@@ -28,8 +28,12 @@ class ArticleController extends AbstractController {
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        // $this->denyAccessUnlessGranted('ROLE_USER');
 
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'Pas connecté !');
+            return $this->redirectToRoute('article_index');
+        }
 
         $article = new Article();
         $article->setUser($this->getUser());
