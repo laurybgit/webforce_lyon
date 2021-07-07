@@ -30,7 +30,7 @@
 		{% block flash %}
 			{% for message in app.flashes('error') %}
 				<div>
-					<p class="danger alert-danger">{{ message }}</p>
+					<p class="alert alert-danger">{{ message }}</p>
 				</div>
 			{% endfor %}
 		{% endblock %}
