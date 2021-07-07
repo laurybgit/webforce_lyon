@@ -98,7 +98,8 @@ class Article {
     public function getCreatedAtFormatted(string $rule): string {
         return $this->created_at->format($rule);
     }
-    public function getCreatedAt(): ?\DateTimeImmutable {
+    
+    private function getCreatedAt(): ?\DateTimeImmutable {
         return $this->created_at;
     }
 
