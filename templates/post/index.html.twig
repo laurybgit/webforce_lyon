@@ -34,8 +34,8 @@
                         {{ post.user.username }}
                     {% endif %}
                 </td>
-                <td> <img class="img-thumbnail" src="{{ asset('uploads/images/') }}{{ post.image }}"></td>
-                <td>
+                <td> <img class="img-thumbnail" src="{{ post.image }}"></td>
+               <td>
                     <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
 
                     {% if is_granted('EDIT', post) %}
