@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -66,6 +67,8 @@ class ArticleController extends AbstractController {
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Article $article): Response {
+        $this->denyAccessUnlessGranted('EDIT', $article);
+
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
