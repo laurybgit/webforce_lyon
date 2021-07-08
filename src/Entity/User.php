@@ -40,17 +40,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $name;
-
-    /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user", orphanRemoval=true)
      */
     private $articles;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $lastName;
+
+    public function __construct() {
         $this->articles = new ArrayCollection();
     }
 
@@ -132,31 +136,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         // $this->plainPassword = null;
     }
 
-    public function getName(): ?string {
-        return $this->name;
-    }
-
-    public function setName(string $name): self {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function __toString(): string {
-        return $this->name;
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     /**
      * @return Collection|Article[]
      */
-    public function getArticles(): Collection
-    {
+    public function getArticles(): Collection {
         // dump($this->articles);
         return $this->articles;
     }
 
-    public function addArticle(Article $article): self
-    {
+    public function addArticle(Article $article): self {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
             $article->setUser($this);
@@ -165,14 +157,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         return $this;
     }
 
-    public function removeArticle(Article $article): self
-    {
+    public function removeArticle(Article $article): self {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
             if ($article->getUser() === $this) {
                 $article->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self {
+        $this->lastName = $lastName;
 
         return $this;
     }

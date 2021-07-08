@@ -21,20 +21,18 @@ class AppFixtures extends Fixture {
     public function load(ObjectManager $manager) {
         $faker = Faker\Factory::create();
 
-        // $product = new Product();
-        // $manager->persist($product);
         for ($i = 0; $i < self::NB_USERS; $i++) {
             $user = new User();
             $user->setEmail($faker->email);
             $user->setRoles([$faker->randomElement(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_CUSTOM'])]);
             $password = $this->encoder->encodePassword($user, 'pizzapizza');
             $user->setPassword($password);
-            $user->setName($faker->lastName);
+            $user->setLastName($faker->lastName);
+            $user->setFirstName($faker->firstName());
             $this->addReference(self::REF_USER_OBJECT . $i, $user);
+
             $manager->persist($user);
         }
-
-
 
         for ($i = 0; $i < self::NB_ARTICLES; $i++) {
             $article = new Article();
@@ -43,6 +41,7 @@ class AppFixtures extends Fixture {
             $article->setUser($this->getReference(self::REF_USER_OBJECT . rand(0, self::NB_USERS - 1)));
             $article->setImage($faker->imageUrl);
             $article->setContent($faker->paragraph());
+
             $manager->persist($article);
         }
 

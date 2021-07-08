@@ -5,32 +5,38 @@
 
 {% block body %}
 	<h1>Article index</h1>
+	{% if is_granted('ROLE_USER') %}
+		<a href="{{ path('article_new') }}">
+			<i class="bi bi-file-plus-fill" style="font-size:3rem"></i><h2 class="fs-1 d-inline">Create new</h2></a>
+
+	{% endif %}
 
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>Title</th>
 				<th>Description</th>
 				<th>Author</th>
-				<th>date</th>
 				<th>actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for article in articles %}
 				<tr>
-					<td>{{ article.id }}</td>
 					<td>{{ article.title }}</td>
 					<td>{{ article.description }}</td>
 					<td>{{ article.user }}</td>
-					<td>{{article.getCreatedAtFormatted('l')}}</td>
-
 
 					<td>
-						<a href="{{ path('article_show', {'id': article.id}) }}">show</a>
+						<a title="Read the article" href="{{ path('article_show', {'id': article.id}) }}">
+							<i class="bi bi-folder2-open"></i>
+						</a>
+
 						{% if is_granted('EDIT',article) %}
-							<a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+							<a title="Edit the article" href="{{ path('article_edit', {'id': article.id}) }}">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+
 						{% endif %}
 
 					</td>
@@ -43,8 +49,5 @@
 		</tbody>
 	</table>
 
-	{% if is_granted('ROLE_USER') %}
-		<a href="{{ path('article_new') }}">Create new</a>
-	{% endif %}
 
 {% endblock %}
