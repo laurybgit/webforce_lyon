@@ -27,7 +27,12 @@
 			<tr>
 				<th>Image</th>
 				{% if '.' in article.image %}
-					<td><img class="rounded mx-auto d-block" src="{{ asset('/images/articles/') }}{{article.image}}"/></td>
+					{% if article.image starts with 'http' %}
+						<td><img class="rounded mx-auto d-block" src="{{article.image}}"/></td>
+					{% else %}
+						<td><img class="rounded mx-auto d-block" src="{{ asset('/images/articles/') }}{{article.image}}"/></td>
+					{% endif %}
+
 				{% else %}
 					<td>NoImg</td>
 				{% endif %}
@@ -35,4 +40,4 @@
 		</tbody>
 	</ht>
 
-</tr></tbody></table><a href="{{ path('article_index') }}">back to list</a><a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>{{ include('article/_delete_form.html.twig') }}{% endblock %}
+</tr></tbody></table><a href="{{ path('article_index') }}">back to list</a>{% if is_granted('EDIT',article) %}<a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>{% endif %}{{ include('article/_delete_form.html.twig') }}{% endblock %}
