@@ -26,15 +26,10 @@
 			</tr>
 			<tr>
 				<th>Image</th>
-				{% if '.' in article.image %}
-					{% if article.image starts with 'http' %}
-						<td><img class="rounded mx-auto d-block" src="{{article.image}}"/></td>
-					{% else %}
-						<td><img class="rounded mx-auto d-block" src="{{ asset('/images/articles/') }}{{article.image}}"/></td>
-					{% endif %}
-
+				{% if article.image starts with 'http' %}
+					<td><img class="rounded mx-auto d-block" src="{{article.image}}"/></td>
 				{% else %}
-					<td>NoImg</td>
+					<td><img class="rounded mx-auto d-block" src="{{ asset('/images/articles/') }}{{article.image}}"/></td>
 				{% endif %}
 			</tr>
 		</tbody>
