@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -16,7 +18,7 @@ class PostType extends AbstractType
             ->add('resume')
             ->add('contenu')
             
-            ->add('image')
+            ->add('imageFile', VichImageType::class)
         ;
     }
 

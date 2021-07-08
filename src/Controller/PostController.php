@@ -75,6 +75,8 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, Post $post): Response
     {
+        $this->denyAccessUnlessGranted('EDIT', $post);
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
