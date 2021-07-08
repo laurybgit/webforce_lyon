@@ -24,6 +24,14 @@
 				<th>Created at</th>
 				<td>{{article.getCreatedAtFormatted('l')}}</td>
 			</tr>
+			<tr>
+				<th>Image</th>
+				{% if '.' in article.image %}
+					<td><img class="rounded mx-auto d-block" src="{{ asset('/images/articles/') }}{{article.image}}"/></td>
+				{% else %}
+					<td>NoImg</td>
+				{% endif %}
+			</tr>
 		</tbody>
 	</ht>
 

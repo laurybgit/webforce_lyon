@@ -5,9 +5,12 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @Vich\Uploadable
  */
 class Article {
 
@@ -46,6 +49,12 @@ class Article {
      */
     private $image;
 
+    /**
+     * @Vich\UploadableField(mapping="article_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+    
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
@@ -113,5 +122,14 @@ class Article {
         $this->user = $user;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null) {
+        $this->imageFile = $image;
+        // if ($image) $this->updatedAt = new \DateTime('now');
+    }
+
+    public function getImageFile() {
+        return $this->imageFile;
     }
 }
