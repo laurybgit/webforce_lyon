@@ -38,7 +38,11 @@ class AppFixtures extends Fixture
         //LES FAKERS
 
         $faker = Faker\Factory::create();
+<<<<<<< HEAD
         for ($i = 1; $i <= 10; $i++) {
+=======
+        for ($i = 1; $i <= 20; $i++) {
+>>>>>>> 7bf381957649633c0220994ff52cb082b86d22a1
             $user = new User();
             $user->setEmail($faker->email);
 
@@ -47,9 +51,12 @@ class AppFixtures extends Fixture
 
             $user->setRoles($faker->randomElements(['ROLE_USER','ROLE_ADMIN','ROLE_APP']));
 
+<<<<<<< HEAD
             $user->setNom($faker->firstName);
             $user->setPrenom($faker->lastName);
 
+=======
+>>>>>>> 7bf381957649633c0220994ff52cb082b86d22a1
             $this->addReference('user_'.$i, $user);
 
             $manager->persist($user);
@@ -58,9 +65,15 @@ class AppFixtures extends Fixture
 
 
         // LES ARTICLES
+<<<<<<< HEAD
         for ($i = 1; $i <= 10; $i++) {
 
             $auteur = $this->getReference('user_'.rand(1,10));
+=======
+        for ($i = 1; $i <= 50; $i++) {
+
+            $auteur = $this->getReference('user_'.rand(1,20));
+>>>>>>> 7bf381957649633c0220994ff52cb082b86d22a1
 
             $article = new Post();
 

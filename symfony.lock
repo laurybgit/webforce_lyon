@@ -57,7 +57,11 @@
             "ref": "e5b542d4ef47d8a003c91beb35650c76907f7e53"
         },
         "files": [
+<<<<<<< HEAD
             "./src/DataFixtures/AppFixtures.php"
+=======
+            "src/DataFixtures/AppFixtures.php"
+>>>>>>> 7bf381957649633c0220994ff52cb082b86d22a1
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
