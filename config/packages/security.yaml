@@ -1,3 +1,4 @@
+#prettier-ignore
 security:
     # https://symfony.com/doc/current/security/experimental_authenticators.html
     enable_authenticator_manager: true
