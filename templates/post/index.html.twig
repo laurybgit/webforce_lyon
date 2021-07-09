@@ -12,7 +12,6 @@
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Resume</th>
-                <th>Contenu</th>
                 <th>Crée le</th>
                 <th>Auteur</th>
                 <th>Image</th>
@@ -25,17 +24,16 @@
                 <td>{{ post.id }}</td>
                 <td>{{ post.titre }}</td>
                 <td>{{ post.resume }}</td>
-                <td>{{ post.contenu }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('d-m-Y H:i:s') : '' }}</td>
                 <td>
                     {%  if post.user is empty %}
                         Anonymous
                     {% else %}
-                        {{ post.user.username }}
+                        {{ post.user }}
                     {% endif %}
                 </td>
-                <td> <img class="img-thumbnail" src="{{ asset('uploads/images/') }}{{ post.image }}"></td>
-                <td>
+                <td> <img class="img-thumbnail" src="{{ post.image }}"></td>
+               <td>
                     <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
 
                     {% if is_granted('EDIT', post) %}
