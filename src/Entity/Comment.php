@@ -1,15 +1,16 @@
 <?php
 
-/* Tutoriel : https://nouvelle-techno.fr/actualites/symfony-4-creer-un-blog-pas-a-pas-utiliser-les-formulaires */ 
-
 namespace App\Entity;
 
+use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\HttpFoundation\File\File;
+
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CommentairesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class Commentaires
+class Comment
 {
     /**
      * @ORM\Id()
@@ -39,7 +40,7 @@ class Commentaires
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="comment")
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
